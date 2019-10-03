@@ -113,6 +113,11 @@ RCT_EXPORT_MODULE()
   [[NSNotificationCenter defaultCenter] postNotificationName:RCTRemoteNotificationReceived
                                                       object:self
                                                     userInfo:userInfo];
+  // Temp clear all notifications from notification center on "Background Updates"
+  if ([UNUserNotificationCenter class]) {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center removeAllDeliveredNotifications];
+  }
 }
 
 + (void)didReceiveLocalNotification:(UILocalNotification *)notification
